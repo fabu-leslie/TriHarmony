@@ -1,4 +1,5 @@
 from django import forms
+from .models import Child, Specialist
 
 
 class BehaviorForm(forms.Form):
@@ -14,6 +15,11 @@ class BehaviorForm(forms.Form):
     behavoir3_frequency = forms.IntegerField()
     notes = forms.CharField(max_length=255)
 
-class ChildForm(forms.Form):
-    name = forms.CharField(max_length=255)
+# ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
+
+
+class ChildForm(forms.ModelForm):
+    class Meta:
+        model= Child
+        fields = ['name', 'age', 'dob', 'gender', 'specialist']
 

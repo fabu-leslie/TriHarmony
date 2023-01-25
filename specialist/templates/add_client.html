@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+<h1>New Client</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ new_client_form.as_table }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock content %}
