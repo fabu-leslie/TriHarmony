@@ -26,8 +26,19 @@ def add_client(request):
 
 def client_detail(request, client_id):
     client = get_object_or_404(Child, pk=client_id)
+    # if request.user.is_authenticated and request.user.is_specialist:
     behavior_form = BehaviorForm()
     return render(request, 'client_detail.html', {'client': client, 'behavior_form': behavior_form})
+    # else:
+    #     return render(request, 'client_detail_parent.html', {'client': client})
+
+def parent_detail(request, client_id):
+    client = get_object_or_404(Child, pk=client_id)
+    # if request.user.is_authenticated and request.user.is_specialist:
+    behavior_form = BehaviorForm()
+    return render(request, 'parent_detail.html', {'client': client, 'behavior_form': behavior_form})
+    # else:
+    #     return render(request, 'parent_detail.html', {'client': client})
 
 def client_behavior(request, client_id):
     client = Child.objects.get(id=client_id)

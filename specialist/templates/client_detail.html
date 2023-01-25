@@ -3,10 +3,29 @@
 
 {% block content %}
 <h1>{{ client.name }}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Behavior</th>
+            <th>Intensity</th>
+            <th>Frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for behavior in client.behavior_set.all %}
+        <tr>
+            <td>{{ behavior.behavior1 }}</td>
+            <td>{{ behavior.behavior1_frequency }}</td>
+            <td>{{ behavior.behavior1_intensity }}</td>
+            <td>{{ behavior.behavior2 }}</td>
+            <td>{{ behavior.behavior2_frequency }}</td>
+            <td>{{ behavior.behavior2_intensity }}</td>
+            <td>{{ behavior.behavior3 }}</td>
+            <td>{{ behavior.behavior3_frequency }}</td>
+            <td>{{ behavior.behavior3_intensity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-<form method="post">
-    {% csrf_token %}
-    {{ behavior_form.as_p }}
-    <input type="submit" value="Submit">
-</form>
 {% endblock content %}
