@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
-from .forms import ChildForm
-from .models import Child
+from .forms import ChildForm, BehaviorForm
+from .models import Child, Behavior
 
 
 def home(request):
@@ -22,3 +22,15 @@ def add_client(request):
     else:
         new_client_form = ChildForm()
     return render(request, 'add_client.html', {'new_client_form': new_client_form})
+
+
+def client_detail(request, client_id):
+    client = get_object_or_404(Child, pk=client_id)
+    behavior_form = BehaviorForm()
+    return render(request, 'client_detail.html', {'client': client, 'behavior_form': behavior_form})
+
+def client_behavior(request, client_id):
+    client = Child.objects.get(id=client_id)
+    behaviors = Behavior.objects.filter(child=client)
+    context = {'client':client, 'behaviors': behaviors}
+    return render(request, 'client_detail.html', context)
