@@ -54,7 +54,7 @@ class BehaviorForm(forms.ModelForm):
 
 # ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
 
-
+# for new client
 class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
