@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ user.username }}'s Clients</h2>
+<h2>{{ user.username }}'s Dashboard</h2>
+<button><a href="{% url 'specialist:add_client' %}">Click here to add new client</a></button>
+
 {% for client in clients %}
 <div class="client">
     <h3><a href="{% url 'specialist:client_detail' client.id %}">{{ client.name }}</a></h3>
@@ -12,5 +14,4 @@
 </div>
 {% endfor %}
 
-<button><a href="{% url 'specialist:add_client' %}">Click here to add new client</a></button>
 {% endblock %}

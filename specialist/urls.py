@@ -11,8 +11,6 @@ urlpatterns = [
          views.client_detail, name='client_detail'),
     path('parent_detail/<int:client_id>/',
          views.parent_detail, name='parent_detail'),
-    path('edit_behavior/<int:behavior_id>/',
-         views.edit_behavior, name='edit_behavior'),
     path('client/<int:client_id>/edit_behavior/',
          views.edit_behavior, name='edit_behavior'),
     path('client/<int:client_id>/add_behavior/',
