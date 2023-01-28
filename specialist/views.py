@@ -23,19 +23,14 @@ def add_client(request):
         new_client_form = ChildForm()
     return render(request, 'add_client.html', {'new_client_form': new_client_form})
 
-
 def client_detail(request, client_id):
+    behavior_form = BehaviorForm()
     client = get_object_or_404(Child, pk=client_id)
-    behaviors = Behavior.objects.filter(child=client)
     if request.user.is_authenticated and request.user.has_perm('edit_behavior'):
-        if behaviors:
-            edit_behavior = True
-        else:
-            edit_behavior = False
-        # behavior_form = BehaviorForm()
-        return render(request, 'client_detail.html', {'client': client, 'edit_behavior': edit_behavior})
-    else:
-        return render(request, 'client_detail_parent.html', {'client': client})
+        behaviors = Behavior.objects.filter(child=client)
+        return render(request, 'client_detail.html', {'client': client, 'behaviors': behaviors})   
+    return render(request, 'client_detail.html', {'client': client, 'behavior_form': behavior_form})
+
 # View first gets client object and queries db for any behav assoc. with client
 
 
@@ -55,14 +50,14 @@ def client_behavior(request, client_id):
     return render(request, 'client_detail.html', context)
 
 
-def edit_behavior(request, behavior_id):
+def edit_behavior(request, client_id):
     # retrieves behavior with given id from db, uses it to pre-populate a behavior form.
-    behavior = get_object_or_404(Behavior, pk=behavior_id)
+    behavior = get_object_or_404(Behavior, pk=client_id)
     if request.method == 'POST':
         form = BehaviorForm(request.POST, instance=behavior)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('specialist:client_detail', args=(behavior.child.id,)))
+            return HttpResponseRedirect(reverse('specialist:client_detail', args=(client_id,)))
     else:
         form = BehaviorForm(instance=behavior)
     return render(request, 'edit_behavior.html', {'form': form, 'behavior': behavior})
@@ -76,7 +71,7 @@ def add_behavior(request, client_id):
             new_behavior = form.save(commit=False)
             new_behavior.child = client
             new_behavior.save()
-            return redirect('client_detail', client_id=client.id)
+            return HttpResponseRedirect(reverse('specialist:client_detail', args=(client_id,)))
     else:
         form = BehaviorForm()
     return render(request, 'add_behavior.html', {'form': form, 'client': client})

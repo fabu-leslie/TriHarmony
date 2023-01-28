@@ -1,5 +1,5 @@
 from django import forms
-from .models import Behavior, Child, Specialist
+from .models import Behavior, Child
 
 
 # class BehaviorForm(forms.Form):
@@ -37,24 +37,30 @@ class BehaviorForm(forms.ModelForm):
         ('3', '(3) Behavior is severe enough to worry you almost every time'),
         ('4', '(4) Behavior is severe enough to worry you EVERY single time'),
         ('5', '(5) You categorize this behavior as very serious almost every time'),
-        ('6', '(6) You categorize this behavior as very serious EVERY single time. Outside help has been involved in the past to target this behavior and is not helping, BUT there are more "good days" than "bad days" overall.This behavior IS hurting the child or others when it happens, but it requires no more than first aid and no professional medical attention'),
+        ('6', '(6) You categorize this behavior as very serious EVERY single time. This behavior IS hurting the child or others when it happens'),
         ('7', '(7) You categorize this behaviors as alarmingly serious almost every time'),
-        ('8', '(8) You categorize this behavior as alarmingly serious EVERY single time. There are more "bad days" than "good days" overall.Behavior results in a need for professional medical attention above the level of first aid, including an ER visit without admission'),
-        ('9', '(9) You categorize this behavior as catastrophic because it was, or is potentially life-threatening. Nobody died and the behavior did not appear to be intended as a suicidal or homicidal act.An ER visit was necessary to treat a serious injury but did NOT result in admission'),
-        ('10', '(10) A successful or thwarted suicidal or homicidal act has occurred, OR an ER consultation resulted in admission OR child was in some other life-threatening situation')
+        ('8', '(8) You categorize this behavior as alarmingly serious EVERY single time. There are more "bad days" than "good days" overall.'),
+        ('9', '(9) You categorize this behavior as catastrophic because it was, or is potentially life-threatening'),
+        ('10', '(10) A successful or thwarted suicidal or homicidal act has occurred, OR child was in some other life-threatening situation')
 
     ]
 
     class Meta:
         model = Behavior
-        fields = ['behavior1', 'behavior1_intensity', 'behavior1_frequency', 'behavior2', 'behavior2_intensity', 'behavior2_frequency',
-                  'behavior3', 'behavior3_intensity', 'behavior3_frequency']
+        fields = ['behavior1', 'behavior1_details', 'behavior1_intensity', 'behavior1_frequency', 'behavior2', 'behavior2_details', 'behavior2_intensity', 'behavior2_frequency',
+                  'behavior3', 'behavior3_details', 'behavior3_intensity', 'behavior3_frequency']
     behavior1_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
     behavior1_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
+    behavior2_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
+    behavior2_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
+    behavior3_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
+    behavior3_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
 
 # ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
 
 # for new client
+
+
 class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
