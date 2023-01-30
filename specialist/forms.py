@@ -2,19 +2,6 @@ from django import forms
 from .models import Behavior, Child
 
 
-# class BehaviorForm(forms.Form):
-#     child = forms.CharField(max_length=255)
-#     behavior1 = forms.CharField(max_length=255)
-#     behavior1_intensity = forms.IntegerField()
-#     behavior1_frequency = forms.IntegerField()
-#     behavior2 = forms.CharField(max_length=255)
-#     behavior2_intensity = forms.IntegerField()
-#     behavior2_frequency = forms.IntegerField()
-#     behavior3 = forms.CharField(max_length=255)
-#     behavior3_intensity = forms.IntegerField()
-#     behavoir3_frequency = forms.IntegerField()
-#     notes = forms.CharField(max_length=255)
-
 class BehaviorForm(forms.ModelForm):
     FREQUENCY_CHOICES = [
         ('0', '(0) nonexistant'),
@@ -47,8 +34,8 @@ class BehaviorForm(forms.ModelForm):
 
     class Meta:
         model = Behavior
-        fields = ['behavior1', 'behavior1_details', 'behavior1_intensity', 'behavior1_frequency', 'behavior2', 'behavior2_details', 'behavior2_intensity', 'behavior2_frequency',
-                  'behavior3', 'behavior3_details', 'behavior3_intensity', 'behavior3_frequency']
+        fields = ['behavior1', 'behavior1_intensity', 'behavior1_frequency', 'behavior2', 'behavior2_intensity', 'behavior2_frequency',
+                  'behavior3', 'behavior3_intensity', 'behavior3_frequency']
     behavior1_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
     behavior1_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
     behavior2_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
@@ -65,3 +52,9 @@ class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
         fields = ['name', 'age', 'dob', 'gender', 'specialist']
+
+
+class SpecialistBehaviorForm(forms.ModelForm):
+    class Meta:
+        model = Behavior
+        fields = ['behavior1', 'behavior2', 'behavior3']
