@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Parent: {{ parent.name }}</h2>
+<p>Child: {{ child.name }}</p>
+<p>Child's Age: {{ child.age }}</p>
+
+<p>Behavior 1: {{ behaviors.behavior1 }}</p>
+<p>Behavior 2: {{ behaviors.behavior2 }}</p>
+<p>Behavior 3: {{ behaviors.behavior3 }}</p>
+
+<h1>Behavior Rating Form for {{ parent.child }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+<h3>Parent Most Check-In Data</h3>
+
+
+<li>Behavior 1: {{ behaviors.behavior1 }}</li>
+<p>Intensity: {{ checkins.behavior1_intensity }}</p>
+<p>Frequency: {{ checkins.behavior1_frequency }}</p>
+
+<li>Behavior 2: {{ behaviors.behavior2 }}</li>
+<p>Intensity: {{ checkins.behavior2_intensity }}</p>
+<p>Frequency: {{ checkins.behavior2_frequency }}</p>
+
+<li>Behavior 3: {{ behaviors.behavior3 }}</li>
+<p>Intensity: {{ checkins.behavior3_intensity }}</p>
+<p>Frequency: {{ checkins.behavior3_frequency }}</p>
+
+
+
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Behavior, Child
+from .models import Behavior, Child, BehaviorCheckIn
 
 
 class BehaviorForm(forms.ModelForm):
@@ -33,15 +33,16 @@ class BehaviorForm(forms.ModelForm):
     ]
 
     class Meta:
-        model = Behavior
-        fields = ['behavior1', 'behavior1_intensity', 'behavior1_frequency', 'behavior2', 'behavior2_intensity', 'behavior2_frequency',
-                  'behavior3', 'behavior3_intensity', 'behavior3_frequency']
+        model = BehaviorCheckIn
+        fields = ['behavior1_intensity', 'behavior1_frequency', 'behavior2_intensity', 'behavior2_frequency',
+                  'behavior3_intensity', 'behavior3_frequency']
     behavior1_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
     behavior1_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
     behavior2_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
     behavior2_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
     behavior3_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
     behavior3_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
+    # behavior1 = forms.CharField(disabled=True)
 
 # ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
 
@@ -53,8 +54,28 @@ class ChildForm(forms.ModelForm):
         model = Child
         fields = ['name', 'age', 'dob', 'gender', 'specialist']
 
-
 class SpecialistBehaviorForm(forms.ModelForm):
     class Meta:
         model = Behavior
         fields = ['behavior1', 'behavior2', 'behavior3']
+
+
+
+# class SpecialistBehaviorForm(forms.Form):
+#     behavior1 = forms.CharField()
+#     behavior2 = forms.CharField()
+#     behavior3 = forms.CharField()
+
+#     def save(self, child, commit=True):
+#         behavior1 = self.cleaned_data['behavior1']
+#         behavior2 = self.cleaned_data['behavior2']
+#         behavior3 = self.cleaned_data['behavior3']
+
+#         behavior_objects = []
+#         for behavior_name in [behavior1, behavior2, behavior3]:
+#             behavior, _ = Behavior.objects.get_or_create(behavior=behavior_name)
+#             behavior_objects.append(behavior)
+
+#         child.behaviors.set(behavior_objects)
+#         child.save()
+

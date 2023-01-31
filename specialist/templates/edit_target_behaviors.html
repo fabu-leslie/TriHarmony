@@ -1,12 +1,14 @@
 {% extends 'base.html'%}
-
-
 {% block content %}
-<h1>Edit Behavior</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save Changes">
-</form>
+
+
+<h2>Behaviors for {{ child.name }}</h2>
+<ul>
+    {% for behavior in child.behaviors %}
+    <li>{{ behavior.behavior1 }}</li>
+    <li>{{ behavior.behavior2 }}</li>
+    <li>{{ behavior.behavior3 }}</li>
+    {% endfor %}
+</ul>
 
 {% endblock content %}

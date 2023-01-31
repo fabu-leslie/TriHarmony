@@ -7,8 +7,10 @@
 <h2>Target Behaviors</h2>
 
 <ul>
-    {% for behavior in client.behavior_set.all %}
-    <li>{{ behavior.name }}</li>
+    {% for behavior in behaviors%}
+    <li>{{ behavior.behavior1 }}</li>
+    <li>{{ behavior.behavior2 }}</li>
+    <li>{{ behavior.behavior3 }}</li>
 
     {% endfor %}
 </ul>
@@ -21,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for behavior in client.behavior_set.all %}
+        <!-- {% for behavior in client.behavior_set.all %}
         <tr>
             <td>{{ behavior.behavior1 }}</td>
             <td>{{ behavior.behavior1_frequency }}</td>
@@ -33,11 +35,14 @@
             <td>{{ behavior.behavior3_frequency }}</td>
             <td>{{ behavior.behavior3_intensity }}</td><br>
         </tr><br>
-        {% endfor %}
+        {% endfor %} -->
         <button><a href="{% url 'specialist:add_behavior' client.id %}">Add Behaviors for this Client</a></button>
 
-        <button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Behaviors for this Client</a></button>
-        <button><a href="{% url 'specialist:parent_data_form' client.id %}">Parent Form</a></button>
+        <button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Behaviors for this
+                Client</a></button>
+        <button><a href="{% url 'specialist:parent_detail' client.id %}">Parent Detail</a></button>
+
+
 
     </tbody>
 </table><br>
