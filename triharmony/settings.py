@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'specialist.apps.SpecialistConfig',
     'accounts.apps.AccountsConfig',
+
 ]
 
 MIDDLEWARE = [

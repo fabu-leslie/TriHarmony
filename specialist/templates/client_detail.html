@@ -9,9 +9,6 @@
 <ul>
     {% for behavior in behaviors%}
     <li>{{ behavior.behavior1 }}</li>
-    <li>{{ behavior.behavior2 }}</li>
-    <li>{{ behavior.behavior3 }}</li>
-
     {% endfor %}
 </ul>
 <table>
@@ -23,19 +20,9 @@
         </tr>
     </thead>
     <tbody>
-        <!-- {% for behavior in client.behavior_set.all %}
-        <tr>
-            <td>{{ behavior.behavior1 }}</td>
-            <td>{{ behavior.behavior1_frequency }}</td>
-            <td>{{ behavior.behavior1_intensity }}</td>
-            <td>{{ behavior.behavior2 }}</td>
-            <td>{{ behavior.behavior2_frequency }}</td>
-            <td>{{ behavior.behavior2_intensity }}</td>
-            <td>{{ behavior.behavior3 }}</td>
-            <td>{{ behavior.behavior3_frequency }}</td>
-            <td>{{ behavior.behavior3_intensity }}</td><br>
-        </tr><br>
-        {% endfor %} -->
+        <button><a href="{% url 'specialist:record_feeling' client.id %}">Record Feeling</a></button>
+        
+
         <button><a href="{% url 'specialist:add_behavior' client.id %}">Add Behaviors for this Client</a></button>
 
         <button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Behaviors for this

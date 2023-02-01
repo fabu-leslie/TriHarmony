@@ -2,6 +2,8 @@
 
 {% block content %}
 <h2>Parent: {{ parent.name }}</h2>
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+
 <p>Child: {{ child.name }}</p>
 <p>Child's Age: {{ child.age }}</p>
 

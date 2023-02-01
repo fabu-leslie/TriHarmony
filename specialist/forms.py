@@ -1,5 +1,23 @@
 from django import forms
-from .models import Behavior, Child, BehaviorCheckIn
+from .models import Behavior, Child, BehaviorCheckIn, Feeling
+
+
+class FeelingForm(forms.ModelForm):
+    feeling = forms.ChoiceField(choices=Feeling.FEELINGS_CHOICES, widget=forms.RadioSelect(), required=True)
+    note = forms.CharField(widget=forms.Textarea, required=False)
+
+    class Meta:
+        model = Feeling
+        fields = ['feeling', 'note']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        feeling = cleaned_data.get('feeling')
+
+        if not feeling:
+            raise forms.ValidationError('Please select a feeling!')
+
+        return cleaned_data
 
 
 class BehaviorForm(forms.ModelForm):
@@ -54,28 +72,8 @@ class ChildForm(forms.ModelForm):
         model = Child
         fields = ['name', 'age', 'dob', 'gender', 'specialist']
 
+
 class SpecialistBehaviorForm(forms.ModelForm):
     class Meta:
         model = Behavior
         fields = ['behavior1', 'behavior2', 'behavior3']
-
-
-
-# class SpecialistBehaviorForm(forms.Form):
-#     behavior1 = forms.CharField()
-#     behavior2 = forms.CharField()
-#     behavior3 = forms.CharField()
-
-#     def save(self, child, commit=True):
-#         behavior1 = self.cleaned_data['behavior1']
-#         behavior2 = self.cleaned_data['behavior2']
-#         behavior3 = self.cleaned_data['behavior3']
-
-#         behavior_objects = []
-#         for behavior_name in [behavior1, behavior2, behavior3]:
-#             behavior, _ = Behavior.objects.get_or_create(behavior=behavior_name)
-#             behavior_objects.append(behavior)
-
-#         child.behaviors.set(behavior_objects)
-#         child.save()
-

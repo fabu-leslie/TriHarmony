@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
-from .forms import ChildForm, BehaviorForm, SpecialistBehaviorForm
-from .models import Child, Behavior, BehaviorCheckIn, Parent
+from django.contrib import messages
+from .forms import ChildForm, BehaviorForm, SpecialistBehaviorForm, FeelingForm
+from .models import Child, Behavior, BehaviorCheckIn, Parent, Feeling
 
 
 def add_behavior(request, client_id):
@@ -39,17 +40,37 @@ def client_behavior(request, client_id):
 def client_detail(request, client_id):
     client = get_object_or_404(Child, id=client_id)
     behaviors = client.behavior_set.all()
+    print(behaviors)
     context = {
         'client': client,
         'behaviors': behaviors,
     }
     return render(request, 'client_detail.html', context)
 
-# def client_detail(request, pk):
-#     child = Child.objects.get(pk=pk)
-#     behaviors = Behavior.objects.filter(child_behaviors = child)
-#     context = {'child': child, 'behaviors': behaviors}
-#     return render(request, 'client_detail.html', context)
+
+def record_feeling(request, client_id):
+    child = get_object_or_404(Child, id=client_id)
+    print(child.name)
+    if request.method == 'POST':
+        form = FeelingForm(request.POST)
+        if form.is_valid():
+            feeling = form.save(commit=False)
+            feeling.child = child
+            feeling.feeling = form.cleaned_data['feeling']
+            feeling.note = form.cleaned_data['note']
+            feeling.save()
+            print(feeling)
+            print(feeling.note)
+            messages.success(request, 'Thank you for sharing your feelings!')
+            return HttpResponseRedirect(reverse('specialist:record_feeling', args=(client_id,)))
+        else:
+            messages.error(request, 'You forgot to select a feeling!')
+    else:
+        form = FeelingForm()
+    context = {
+        'form': form,
+        'child': child}
+    return render(request, 'record_feeling.html', context)
 
 
 def client_list(request):
@@ -82,7 +103,8 @@ def parent_detail(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
     child = parent.child
     behaviors = Behavior.objects.filter(child=child)[0]
-    behaviors_filter = Behavior.objects.filter(child=child)[:1] #filtering behaviorcheckin objects
+    behaviors_filter = Behavior.objects.filter(
+        child=child)[:1]  # filtering behaviorcheckin objects
     new_parent_data = BehaviorCheckIn.objects.filter(behavior=behaviors_filter)
     print(new_parent_data)
     if request.method == 'POST':
@@ -102,6 +124,4 @@ def parent_detail(request, parent_id):
         'checkins': new_parent_data.last(),
         'form': form,
     }
-    # print(behaviors.behaviorcheckin_set.all())
     return render(request, 'parent_detail.html', context)
-

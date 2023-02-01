@@ -45,7 +45,6 @@ class BehaviorCheckIn(models.Model):
     behavior = models.ForeignKey(Behavior, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
-
     def __str__(self):
         return str(self.behavior1_intensity)
 
@@ -57,3 +56,29 @@ class Parent(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Feeling(models.Model):
+    FEELINGS_CHOICES = (
+        ('happy', 'Happy'),
+        ('sad', 'Sad'),
+        ('angry', 'Angry'),
+        ('scared', 'Scared'),
+        ('tired', 'Tired'),
+        ('confused', 'Confused'),
+        ('disappointed', 'Disappointed'),
+        ('frustrated', 'Frustrated'),
+        ('lonely', 'Lonely'),
+        ('nervous', 'Nervous'),
+        ('proud', 'Proud'),
+        ('surprised', 'Surprised'),
+        ('worried', 'Worried'),
+        ('overwhelmed', 'Overwhelmed'),
+    )
+    child = models.ForeignKey(Child, on_delete=models.CASCADE)
+    feeling = models.CharField(choices=FEELINGS_CHOICES, max_length=255)
+    recorded_at = models.DateTimeField(auto_now_add=True, null=True)
+    note = models.TextField(max_length=3000, blank=False)
+
+    def __str__(self):
+        return self.feeling
