@@ -1,18 +1,18 @@
 {% extends 'base.html'%}
 {% block content %}
 
-<h1>Behavior Ratings</h1>
+<h1>Parent Behavior Ratings</h1>
 <div class="parent_data">
     <ul>
         {% for behavior in behaviors %}
-        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior1_intensity }}
-            Frequency: {{ behavior.behavior1_frequency }}
-            Date: {{ behavior.created_at|date:"Y-m-d" }}</li>
-        <li>{{ behavior.behavior2 }}: Intensity: {{ behavior.behavior2_intensity }}
-            Frequency: {{ behavior.behavior2_frequency }}
-            Date: {{ behavior.created_at|date:"Y-m-d" }}</li>
-        <li>{{ behavior.behavior3 }}: Intensity: {{ behavior.behavior3_intensity }}
-            Frequency: {{ behavior.behavior3_frequency }}
+        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
+            Frequency: {{ behavior.behavior_frequency }}
+            Date: {{ behavior.created_at|date:"Y-m-d" }}</li><br>
+        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
+            Frequency: {{ behavior.behavior_frequency }}
+            Date: {{ behavior.created_at|date:"Y-m-d" }}</li><br>
+        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
+            Frequency: {{ behavior.behavior_frequency }}
             Date: {{ behavior.created_at|date:"Y-m-d" }}</li>
 
         {% endfor %}

@@ -80,25 +80,22 @@ def client_list(request):
     return render(request, 'client_list.html', {'clients': clients})
 
 
-# def edit_target_behaviors(request, client_id):
-#     client = get_object_or_404(Child, id=client_id)
-#     behavior = Behavior.objects.filter(child=client)
-#     if request.method == 'POST':
-#         form = SpecialistBehaviorForm(request.POST, instance=behavior)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('specialist:client_detail', client_id=client_id)
-#     else:
-#         form = SpecialistBehaviorForm(instance=behavior)
-#     context = {
-#         'client': client,
-#         'form': form,
-#     }
-#     return render(request, 'edit_target_behaviors.html', context)
+def edit_target_behaviors(request, behavior_id):
+    behavior = get_object_or_404(Behavior, id=behavior_id)
+    if request.method == 'POST':
+        form = SpecialistBehaviorForm(request.POST, instance=behavior)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Target behavior updated')
+            return HttpResponseRedirect(reverse('specialist:client_detail', args=[behavior.child.id]))
+    else:
+        form = SpecialistBehaviorForm(instance=behavior)
+    return render(request, 'edit_target_behaviors.html', {'form': form})
 
 
 def home(request):
     return render(request, 'home.html')
+
 
 def parent_detail(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
@@ -125,8 +122,6 @@ def parent_detail(request, parent_id):
     return render(request, 'parent_detail.html', context)
 
 
-
-
 def view_feelings(request, client_id):
     child = get_object_or_404(Child, id=client_id)
     feelings = Feeling.objects.filter(child=child)
@@ -136,7 +131,5 @@ def view_feelings(request, client_id):
         'child': child,
         'behaviors': behaviors,
     }
-    for behavior in behaviors:
-        print(behavior.behavior.name)
-        print(behavior.behavior1_intensity)
+
     return render(request, 'view_feelings.html', context)

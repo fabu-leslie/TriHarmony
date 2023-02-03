@@ -18,7 +18,6 @@ urlpatterns = [
          views.record_feeling, name='record_feeling'),
     path('view_feelings/<int:client_id>/',
          views.view_feelings, name='view_feelings'),
+    path('edit_target_behaviors/<int:behavior_id>/',
+         views.edit_target_behaviors, name='edit_target_behaviors'),
 ]
-
-#     path('client/<int:client_id>/edit_target_behaviors/',
-#          views.edit_target_behaviors, name='edit_target_behaviors'),
