@@ -11,10 +11,14 @@ urlpatterns = [
          views.client_detail, name='client_detail'),
     path('parent_detail/<int:parent_id>/',
          views.parent_detail, name='parent_detail'),
-    path('client/<int:client_id>/edit_target_behaviors/',
-         views.edit_target_behaviors, name='edit_target_behaviors'),
+
     path('client/<int:client_id>/add_behavior/',
          views.add_behavior, name='add_behavior'),
     path('record_feeling/<int:client_id>/',
          views.record_feeling, name='record_feeling'),
+    path('view_feelings/<int:client_id>/',
+         views.view_feelings, name='view_feelings'),
 ]
+
+#     path('client/<int:client_id>/edit_target_behaviors/',
+#          views.edit_target_behaviors, name='edit_target_behaviors'),

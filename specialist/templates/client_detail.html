@@ -8,7 +8,9 @@
 
 <ul>
     {% for behavior in behaviors%}
-    <li>{{ behavior.behavior1 }}</li>
+    <p>Target Behavior: {{ behavior.target_behavior }}</p>
+    <p>Details: {{ behavior.target_behavior_details }}</p>
+
     {% endfor %}
 </ul>
 <table>
@@ -21,14 +23,16 @@
     </thead>
     <tbody>
         <button><a href="{% url 'specialist:record_feeling' client.id %}">Record Feeling</a></button>
-        
+
 
         <button><a href="{% url 'specialist:add_behavior' client.id %}">Add Behaviors for this Client</a></button>
 
-        <button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Behaviors for this
-                Client</a></button>
+        <!-- <button><a href="{% url 'specialist:edit_target_behaviors' client_id=client.id  %}">Edit -->
+                <!-- Behaviors for this Client</a></button> -->
+
         <button><a href="{% url 'specialist:parent_detail' client.id %}">Parent Detail</a></button>
 
+        <button><a href="{% url 'specialist:view_feelings' client.id %}">View Feelings</a></button>
 
 
     </tbody>

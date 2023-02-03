@@ -1,3 +1,5 @@
+from django.shortcuts import render, redirect
+from .models import Behavior, Child, Parent, BehaviorCheckIn
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
@@ -8,14 +10,14 @@ from .models import Child, Behavior, BehaviorCheckIn, Parent, Feeling
 def add_behavior(request, client_id):
     client = get_object_or_404(Child, pk=client_id)
     if request.method == 'POST':
-        form = BehaviorForm(request.POST)
+        form = SpecialistBehaviorForm(request.POST)
         if form.is_valid():
             new_behavior = form.save(commit=False)
             new_behavior.child = client
             new_behavior.save()
             return HttpResponseRedirect(reverse('specialist:client_detail', args=(client_id,)))
     else:
-        form = BehaviorForm()
+        form = SpecialistBehaviorForm()
     return render(request, 'add_behavior.html', {'form': form, 'client': client})
 
 
@@ -78,42 +80,38 @@ def client_list(request):
     return render(request, 'client_list.html', {'clients': clients})
 
 
-def edit_target_behaviors(request, client_id):
-    child = get_object_or_404(Child, id=client_id)
-    if request.method == 'POST':
-        form = SpecialistBehaviorForm(request.POST)
-        if form.is_valid():
-            form.save(child)
-            return redirect('specialist:client_detail', client_id=client_id)
-    else:
-        behaviors = child.behaviors.all()
-        form = SpecialistBehaviorForm(initial={
-            'behavior1': behaviors[0].behavior if behaviors else '',
-            'behavior2': behaviors[1].behavior if len(behaviors) > 1 else '',
-            'behavior3': behaviors[2].behavior if len(behaviors) > 2 else '',
-        })
-    return render(request, 'edit_target_behaviors.html', {'form': form})
+# def edit_target_behaviors(request, client_id):
+#     client = get_object_or_404(Child, id=client_id)
+#     behavior = Behavior.objects.filter(child=client)
+#     if request.method == 'POST':
+#         form = SpecialistBehaviorForm(request.POST, instance=behavior)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('specialist:client_detail', client_id=client_id)
+#     else:
+#         form = SpecialistBehaviorForm(instance=behavior)
+#     context = {
+#         'client': client,
+#         'form': form,
+#     }
+#     return render(request, 'edit_target_behaviors.html', context)
 
 
 def home(request):
     return render(request, 'home.html')
 
-
 def parent_detail(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
     child = parent.child
-    behaviors = Behavior.objects.filter(child=child)[0]
-    behaviors_filter = Behavior.objects.filter(
-        child=child)[:1]  # filtering behaviorcheckin objects
-    new_parent_data = BehaviorCheckIn.objects.filter(behavior=behaviors_filter)
-    print(new_parent_data)
+    behaviors = Behavior.objects.filter(child=child)
+    checkins = BehaviorCheckIn.objects.filter(behavior__child=child)
+
     if request.method == 'POST':
         form = BehaviorForm(request.POST)
         if form.is_valid():
-            new_checkin = form.save(commit=False)
-            new_checkin.behavior = behaviors
-            new_checkin.save()
-            form.save_m2m()
+            behavior = form.cleaned_data['behavior']
+            new_checkin = BehaviorCheckIn.objects.create(behavior=behavior)
+            messages.success(request, 'Your form was submitted successfully!')
             return redirect('specialist:parent_detail', parent_id=parent_id)
     else:
         form = BehaviorForm()
@@ -121,7 +119,24 @@ def parent_detail(request, parent_id):
         'parent': parent,
         'child': child,
         'behaviors': behaviors,
-        'checkins': new_parent_data.last(),
+        'checkins': checkins,
         'form': form,
     }
     return render(request, 'parent_detail.html', context)
+
+
+
+
+def view_feelings(request, client_id):
+    child = get_object_or_404(Child, id=client_id)
+    feelings = Feeling.objects.filter(child=child)
+    behaviors = BehaviorCheckIn.objects.filter(behavior__child=child)
+    context = {
+        'feelings': feelings,
+        'child': child,
+        'behaviors': behaviors,
+    }
+    for behavior in behaviors:
+        print(behavior.behavior.name)
+        print(behavior.behavior1_intensity)
+    return render(request, 'view_feelings.html', context)

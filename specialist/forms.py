@@ -3,7 +3,8 @@ from .models import Behavior, Child, BehaviorCheckIn, Feeling
 
 
 class FeelingForm(forms.ModelForm):
-    feeling = forms.ChoiceField(choices=Feeling.FEELINGS_CHOICES, widget=forms.RadioSelect(), required=True)
+    feeling = forms.ChoiceField(
+        choices=Feeling.FEELINGS_CHOICES, widget=forms.RadioSelect(), required=True)
     note = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
@@ -52,15 +53,11 @@ class BehaviorForm(forms.ModelForm):
 
     class Meta:
         model = BehaviorCheckIn
-        fields = ['behavior1_intensity', 'behavior1_frequency', 'behavior2_intensity', 'behavior2_frequency',
-                  'behavior3_intensity', 'behavior3_frequency']
-    behavior1_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
-    behavior1_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
-    behavior2_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
-    behavior2_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
-    behavior3_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
-    behavior3_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
-    # behavior1 = forms.CharField(disabled=True)
+        fields = ['behavior', 'behavior_intensity', 'behavior_frequency']
+    behavior = forms.ModelChoiceField(queryset=Behavior.objects.all())
+    behavior_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
+    behavior_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
+
 
 # ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
 
@@ -76,4 +73,4 @@ class ChildForm(forms.ModelForm):
 class SpecialistBehaviorForm(forms.ModelForm):
     class Meta:
         model = Behavior
-        fields = ['behavior1', 'behavior2', 'behavior3']
+        fields = ['behavior', 'behavior_details', 'notes']
