@@ -4,6 +4,11 @@
 <h2>{{ user.username }}'s Dashboard</h2>
 <button><a href="{% url 'specialist:add_client' %}">Click here to add new client</a></button>
 
+<form action="{% url 'specialist:search_results' %}" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Search">
+</form>
+
 {% for client in clients %}
 <div class="client">
     <h3><a href="{% url 'specialist:client_detail' client.id %}">{{ client.name }}</a></h3>
@@ -11,6 +16,7 @@
     <p>Age: {{ client.age }}</p>
     <p>Gender: {{ client.gender }}</p>
     <p>Specialist: {{ client.specialist }}</p>
+    <p>Parent: {{ client.parent.name }}</p>
 </div>
 {% endfor %}
 

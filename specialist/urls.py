@@ -20,4 +20,5 @@ urlpatterns = [
          views.view_feelings, name='view_feelings'),
     path('edit_target_behaviors/<int:behavior_id>/',
          views.edit_target_behaviors, name='edit_target_behaviors'),
+     path('search_results/', views.search_results, name='search_results')
 ]

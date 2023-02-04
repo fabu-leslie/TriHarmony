@@ -1,13 +1,23 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class Specialist(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    is_specialist = True
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, null=True)
 
     def __str__(self):
         return self.name
+
+
+class Meta:
+    permissions = (
+        ('view_child', 'Can view child'),
+        ('view_parent', 'Can view parent'),
+        ('view_specialist', 'Can view specialist'),
+    )
 
 
 class Child(models.Model):
@@ -16,6 +26,7 @@ class Child(models.Model):
     dob = models.DateField()
     gender = models.CharField(max_length=255)
     specialist = models.CharField(max_length=255)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, null=True)
 
     def __str__(self):
         return self.name
@@ -45,6 +56,7 @@ class Parent(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None, null=True)
 
     def __str__(self):
         return self.name
