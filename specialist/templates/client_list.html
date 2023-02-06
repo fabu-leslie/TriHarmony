@@ -2,12 +2,9 @@
 
 {% block content %}
 <h2>{{ user.username }}'s Dashboard</h2>
-<button><a href="{% url 'specialist:add_client' %}">Click here to add new client</a></button>
+<button><a href="{% url 'specialist:add_client' %}">Click here to add new client</a></button><br>
 
-<form action="{% url 'specialist:search_results' %}" method="get">
-    <input type="text" name="q">
-    <input type="submit" value="Search">
-</form>
+
 
 {% for client in clients %}
 <div class="client">
@@ -16,8 +13,14 @@
     <p>Age: {{ client.age }}</p>
     <p>Gender: {{ client.gender }}</p>
     <p>Specialist: {{ client.specialist }}</p>
-    <p>Parent: {{ client.parent.name }}</p>
+    <p>Parent: {{ client.parent.name }}</p><br>
 </div>
 {% endfor %}
+
+<p>Search for client by name</p>
+<form action="{% url 'specialist:search_results' %}" method="get">
+    <input type="text" name="q">
+    <input type="submit" value="Search">
+</form>
 
 {% endblock %}
