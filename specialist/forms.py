@@ -53,16 +53,14 @@ class BehaviorForm(forms.ModelForm):
 
     class Meta:
         model = BehaviorCheckIn
-        fields = ['behavior', 'behavior_intensity', 'behavior_frequency']
+        fields = ['behavior', 'behavior_intensity', 'behavior_frequency', 'note']
     behavior = forms.ModelChoiceField(queryset=Behavior.objects.all())
     behavior_intensity = forms.ChoiceField(choices=INTENSITY_CHOICES)
     behavior_frequency = forms.ChoiceField(choices=FREQUENCY_CHOICES)
+    note = forms.CharField(widget=forms.Textarea, required=False)
 
 
 # ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
-
-# for new client
-
 
 class ChildForm(forms.ModelForm):
     class Meta:
@@ -74,3 +72,5 @@ class SpecialistBehaviorForm(forms.ModelForm):
     class Meta:
         model = Behavior
         fields = ['behavior', 'behavior_details', 'notes']
+
+

@@ -7,13 +7,9 @@
         {% for behavior in behaviors %}
         <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
             Frequency: {{ behavior.behavior_frequency }}
-            Date: {{ behavior.created_at|date:"Y-m-d" }}</li><br>
-        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
-            Frequency: {{ behavior.behavior_frequency }}
-            Date: {{ behavior.created_at|date:"Y-m-d" }}</li><br>
-        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
-            Frequency: {{ behavior.behavior_frequency }}
-            Date: {{ behavior.created_at|date:"Y-m-d" }}</li>
+            Date: {{ behavior.created_at|date:"Y-m-d" }}
+            Note:  {{ behavior.note }} 
+        </li><br>
 
         {% endfor %}
     </ul>

@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
-from .models import Behavior, Child, Parent, BehaviorCheckIn
-from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import redirect, render
+from .models import Behavior, BehaviorCheckIn, Child, Parent
+from django.shortcuts import get_object_or_404, redirect, render, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import ChildForm, BehaviorForm, SpecialistBehaviorForm, FeelingForm
-from .models import Child, Behavior, BehaviorCheckIn, Parent, Feeling
+from .forms import BehaviorForm, ChildForm, FeelingForm, SpecialistBehaviorForm
+from .models import Behavior, BehaviorCheckIn, Child, Feeling, Parent
 
 
 # @login_required
@@ -51,8 +51,6 @@ def client_detail(request, client_id):
     client = get_object_or_404(Child, id=client_id)
     behaviors = client.behavior_set.all()
     parent = client.parent_set.all()
-    print(behaviors)
-    print(parent)
     context = {
         'client': client,
         'behaviors': behaviors,
@@ -86,7 +84,7 @@ def record_feeling(request, client_id):
     context = {
         'form': form,
         'child': child,
-        'parent': parent,}
+        'parent': parent, }
     return render(request, 'record_feeling.html', context)
 
 
@@ -124,12 +122,21 @@ def parent_detail(request, parent_id):
     child = parent.child
     behaviors = Behavior.objects.filter(child=child)
     checkins = BehaviorCheckIn.objects.filter(behavior__child=child)
+    specialist = child.specialist
 
     if request.method == 'POST':
         form = BehaviorForm(request.POST)
         if form.is_valid():
             behavior = form.cleaned_data['behavior']
-            new_checkin = BehaviorCheckIn.objects.create(behavior=behavior)
+            behavior_intensity = form.cleaned_data['behavior_intensity']
+            behavior_frequency = form.cleaned_data['behavior_frequency']
+            note = form.cleaned_data['note']
+            new_checkin = BehaviorCheckIn.objects.create(
+                behavior=behavior,
+                behavior_intensity=behavior_intensity,
+                behavior_frequency=behavior_frequency,
+                note=note
+            )
             messages.success(request, 'Your form was submitted successfully!')
             return redirect('specialist:parent_detail', parent_id=parent_id)
     else:
@@ -140,6 +147,7 @@ def parent_detail(request, parent_id):
         'behaviors': behaviors,
         'checkins': checkins,
         'form': form,
+        'specialist': specialist,
     }
     return render(request, 'parent_detail.html', context)
 

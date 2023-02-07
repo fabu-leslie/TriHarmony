@@ -54,6 +54,7 @@ class BehaviorCheckIn(models.Model):
     behavior = models.ForeignKey(Behavior, on_delete=models.CASCADE)
     behavior_intensity = models.IntegerField(null=True)
     behavior_frequency = models.IntegerField(null=True)
+    note = models.TextField(max_length=3000, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
