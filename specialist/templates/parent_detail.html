@@ -8,10 +8,7 @@
 <p>Child's Age: {{ child.age }}</p>
 <p>Specialist: {{ child.specialist }}</p>
 
-{% for behavior in behaviors %}
-<p>Target Behavior: {{ behavior.behavior }}</p>
-<p>Details: {{ behavior.behavior_details }}</p>
-{% endfor %}
+
 
 <h1>Behavior Rating Form for {{ parent.child }}</h1>
 {% if messages %}
@@ -28,5 +25,6 @@
 </form>
 <br>
 <br>
+
 
 {% endblock content %}

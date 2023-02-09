@@ -42,11 +42,11 @@ class BehaviorForm(forms.ModelForm):
         ('2', '(2) Upper limit of tolerable for a child of the same approximate age. Behavior is manageable, but frustrating'),
         ('3', '(3) Behavior is severe enough to worry you almost every time'),
         ('4', '(4) Behavior is severe enough to worry you EVERY single time'),
-        ('5', '(5) You categorize this behavior as very serious almost every time'),
-        ('6', '(6) You categorize this behavior as very serious EVERY single time. This behavior IS hurting the child or others when it happens'),
-        ('7', '(7) You categorize this behaviors as alarmingly serious almost every time'),
-        ('8', '(8) You categorize this behavior as alarmingly serious EVERY single time. There are more "bad days" than "good days" overall.'),
-        ('9', '(9) You categorize this behavior as catastrophic because it was, or is potentially life-threatening'),
+        ('5', '(5) Behavior is very serious almost every time'),
+        ('6', '(6) Behavior is very serious EVERY single time and is hurting the child or others when it happens'),
+        ('7', '(7) Behavior is alarmingly serious almost every time'),
+        ('8', '(8) Behavior is alarmingly serious EVERY time and there are more "bad days" than "good days" overall.'),
+        ('9', '(9) This behavior is or was potentially life-threatening'),
         ('10', '(10) A successful or thwarted suicidal or homicidal act has occurred, OR child was in some other life-threatening situation')
 
     ]

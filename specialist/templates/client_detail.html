@@ -6,39 +6,45 @@
 <button><a href="{% url 'specialist:client_list' %}"> Back to Specialist's Dashboard</a></button>
 <h2>Target Behaviors</h2>
 
-<ul>
-    {% for behavior in behaviors %}
-    <p>Target Behavior: {{ behavior.behavior }}</p>
-    <p>Details: {{ behavior.behavior_details }}</p><br>
-    <button><a href="{% url 'specialist:edit_target_behaviors' behavior.id %}">Edit this behavior</a></button>
+<div class="container mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Target Behavior</th>
+                <th>Details</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for behavior in behaviors %}
 
-    {% endfor %}
-</ul>
-<table>
-    <thead>
-        <tr>
-            <th>Behavior</th>
-            <th>Intensity</th>
-            <th>Frequency</th>
-        </tr>
-    </thead>
-    <tbody>
-        <button><a href="{% url 'specialist:record_feeling' client.id %}">Record Feeling</a></button>
+            <tr>
+                <td>{{ behavior.behavior }}</td>
+                <td>{{ behavior.behavior_details }}</td>
+                <td><button><a href="{% url 'specialist:edit_target_behaviors' behavior.id %}">Edit this
+                            behavior</a></button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-        <button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Target Behaviors</a></button>
+<button><a href="{% url 'specialist:record_feeling' client.id %}">Record Feeling</a></button>
 
-
-
-        <button><a href="{% url 'specialist:add_behavior' client.id %}">Add Behaviors for this Client</a></button>
-
-
-
-        <button><a href="{% url 'specialist:parent_detail' client.id %}">Parent Detail</a></button>
-
-        <button><a href="{% url 'specialist:view_feelings' client.id %}">View Feelings</a></button>
+<button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Target Behaviors</a></button>
 
 
-    </tbody>
+
+<button><a href="{% url 'specialist:add_behavior' client.id %}">Add Behaviors for this Client</a></button>
+
+
+
+<button><a href="{% url 'specialist:parent_detail' client.id %}">Parent Detail</a></button>
+
+<button><a href="{% url 'specialist:view_feelings' client.id %}">View Feelings</a></button>
+
+
+</tbody>
 </table><br>
 <button><a href="{% url 'specialist:client_list' %}"> Back to Specialist's Dashboard</a></button>
 {% endblock content %}

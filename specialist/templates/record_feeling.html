@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %}Record Feeling{% endblock %}
 {% block content %}
 <h1>Hi, {{ child.name }}!</h1>
 <h2>How are you feeling right now?</h2>
@@ -12,87 +12,100 @@
 </ul>
 {% endif %}
 
-<div class="feeling-form">
+
+<div class="container">
     <form action="{% url 'specialist:record_feeling' client_id=child.id %}" method="post">
         {% csrf_token %}
         <label for="feeling">Select your feeling:</label>
         <br>
-        <input type="radio" id="happy" name="feeling" value="happy">
-        <label for="happy">
-            <img src="{% static 'images/happy.png' %}" alt="happy">
-        </label>
-        <br>
-        <input type="radio" id="sad" name="feeling" value="sad">
-        <label for="sad">
-            <img src="{% static 'images/happy.png' %}" alt="sad">
-        </label>
-        <br>
-        <input type="radio" id="angry" name="feeling" value="angry">
-        <label for="angry">
-            <img src="{% static 'images/happy.png' %}" alt="angry">
-        </label>
-        <br>
-        <input type="radio" id="scared" name="feeling" value="scared">
-        <label for="scared">
-            <img src="{% static 'images/happy.png' %}" alt="scared">
-        </label>
-        <br>
-        <input type="radio" id="tired" name="feeling" value="tired">
-        <label for="tired">
-            <img src="{% static 'images/happy.png' %}" alt="tired">
-        </label>
-        <br>
-        <input type="radio" id="confused" name="feeling" value="confused">
-        <label for="confused">
-            <img src="{% static 'images/happy.png' %}" alt="confused">
-        </label>
-        <br>
-        <input type="radio" id="disappointed" name="feeling" value="disappointed">
-        <label for="disappointed">
-            <img src="{% static 'images/happy.png' %}" alt="disappointed">
-        </label>
-        <br>
-        <input type="radio" id="frustrated" name="feeling" value="frustrated">
-        <label for="frustrated">
-            <img src="{% static 'images/happy.png' %}" alt="frustrated">
-        </label>
-        <br>
-        <input type="radio" id="lonely" name="feeling" value="lonely">
-        <label for="lonely">
-            <img src="{% static 'images/happy.png' %}" alt="lonely">
-        </label>
-        <br>
-        <input type="radio" id="nervous" name="feeling" value="nervous">
-        <label for="nervous">
-            <img src="{% static 'images/happy.png' %}" alt="nervous">
-        </label>
-        <br>
-        <input type="radio" id="proud" name="feeling" value="proud">
-        <label for="proud">
-            <img src="{% static 'images/happy.png' %}" alt="proud">
-        </label>
-        <br>
-        <input type="radio" id="surprised" name="feeling" value="surprised">
-        <label for="surprised">
-            <img src="{% static 'images/happy.png' %}" alt="surprised">
-        </label>
-        <br>
-        <input type="radio" id="worried" name="feeling" value="worried">
-        <label for="worried">
-            <img src="{% static 'images/happy.png' %}" alt="worried">
-        </label>
-        <br>
-        <input type="radio" id="overwhelmed" name="feeling" value="overwhelmed">
-        <label for="overwhelmed">
-            <img src="{% static 'images/happy.png' %}" alt="overwhelmed">
-        </label>
-        <br>
-        <h3>Have something else to say? Say it here!</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-4 mx-auto">
+                    <label>
+                        <input type="radio" name="feeling" id="happy" value="happy" selected checked
+                            class="card-input-element">
 
+                        <div class="card card-default card-input text-center" style="width:200px">
+                            <img class="card-img-top" src="{% static 'images/happy-face-lg3.png' %}" alt="happy face">
+                            <div class="card-body">
+                                <h4 class="card-title">HAPPY</h4>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="col-4 mx-auto">
+                    <label>
+                        <input type="radio" name="feeling" id="sad" value="sad" selected checked
+                            class="card-input-element">
 
-        <textarea name="note" cols="30" rows="10"></textarea>
-        <button type="submit" value="Save">Save</button>
-    </form>
+                        <div class="card card-default card-input text-center" style="width:200px">
+                            <img class="card-img-top" src="{% static 'images/sad.png' %}" alt="sad face">
+                            <div class="card-body">
+                                <h4 class="card-title">SAD</h4>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="col-4 mx-auto">
+                    <label>
+                        <input type="radio" name="feeling" id="angry" value="angry" selected checked
+                            class="card-input-element">
+
+                        <div class="card card-default card-input text-center" style="width:200px">
+                            <img class="card-img-top" src="{% static 'images/angry.png' %}" alt="angry face">
+                            <div class="card-body">
+                                <h4 class="card-title">ANGRY</h4>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-4 mx-auto">
+                        <label>
+                            <input type="radio" name="feeling" id="scared" value="scared" selected checked
+                                class="card-input-element">
+
+                            <div class="card card-default card-input text-center" style="width:200px">
+                                <img class="card-img-top" src="{% static 'images/scared.png' %}" alt="scared face">
+                                <div class="card-body">
+                                    <h4 class="card-title">SCARED</h4>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 mx-auto">
+                <label>
+                    <input type="radio" id="happy" name="feeling" value="happy" selected checked
+                        class="card-input-element">
+                    <div></div>
+                </label>
+                <div class="card text-center" style="width:200px">
+                    <img class="card-img-top" src="{% static 'images/scared.png' %}" alt="scared face">
+                    <div class="card-body">
+                        <h4 class="card-title">SCARED</h4>
+                        <a href="#" class="stretched-link"></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
 </div>
+</div>
+</div>
+<br>
+
+</form>
+</div>
+<br>
+<h3>Have something else to say? Say it here!</h3>
+
+
+<textarea name="note" cols="30" rows="10"></textarea>
+<button type="submit" value="Save">Save</button>
+
 
 {% endblock %}
