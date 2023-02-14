@@ -1,12 +1,8 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
+
 {% block content %}
-
-<h1>Search Results</h1>
-
-{% for client in clients %}
-
-<a href="{% url 'specialist:client_detail' client.id %}">{{ client.name }}</a>
-
-{% endfor %}
-
-{% endblock content %}
+  <h1>Search Results</h1>
+  {% for client in clients %}
+    <p>{{ client.name }}</p>
+  {% endfor %}
+{% endblock %}

@@ -1,25 +1,31 @@
 {% extends 'base.html' %}
+
+
+
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-{% if next %}
-{% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-{% else %}
-<p>Please login to see this page.</p>
-{% endif %}
-{% endif %}
-<h2>Log In</h2>
-
-<form method="post" action="{% url 'login' %}">
+<div class="container my-5">
+  <h2 class="text-center mb-5">Log In</h2>
+  {% if form.errors %}
+  <div class="alert alert-danger">Your username and password didn't match. Please try again.</div>
+  {% endif %}
+  {% if next %}
+  {% if user.is_authenticated %}
+  <div class="alert alert-danger">Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</div>
+  {% else %}
+  <div class="alert alert-info">Please login to see this page.</div>
+  {% endif %}
+  {% endif %}
+  <form method="post" action="{% url 'login' %}" class="mx-auto w-50">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Log In</button>
-</form>
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+  </form>
+  <p class="text-center mt-3">
+    <a href="{% url 'password_reset' %}" class="text-info">Lost password?</a>
+  </p>
+</div>
 {% endblock %}

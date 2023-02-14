@@ -9,36 +9,35 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
 </div>
-<button><a href="{% url 'specialist:add_client' %}">Click here to add new client</a></button><br>
+<br>
+<div id="client-list-table">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Specialist</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td><a href="{% url 'specialist:client_detail' client.id %}">{{ client.name }}</a></td>
+                <td>{{ client.dob }}</td>
+                <td>{{ client.age }}</td>
+                <td>{{ client.gender }}</td>
+                <td>{{ client.specialist }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Client Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for client in clients %}
-        <tr>
-            <td><a href="{% url 'specialist:client_detail' client.id %}">{{ client.name }}</a></td>
-            <td>{{ client.age }}</td>
-            <td>{{ client.gender }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<div class="client">
-    {% for client in clients %}
-    <h3><a href="{% url 'specialist:client_detail' client.id %}">{{ client.name }}</a></h3>
-    <p>Date of birth: {{ client.dob }}</p>
-    <p>Age: {{ client.age }}</p>
-    <p>Gender: {{ client.gender }}</p>
-    <p>Specialist: {{ client.specialist }}</p>
+    <button class="btn btn-outline-primary"><a href="{% url 'specialist:add_client' %}">Click here to add new
+            client</a></button><br>
+
 </div>
-{% endfor %}
-
 
 
 

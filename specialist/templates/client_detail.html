@@ -2,49 +2,74 @@
 
 
 {% block content %}
-<h1>{{ client.name }}</h1>
-<button><a href="{% url 'specialist:client_list' %}"> Back to Specialist's Dashboard</a></button>
-<h2>Target Behaviors</h2>
+<h1 class="text-center">{{ client.name }}</h1><br>
 
-<div class="container mt-3">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Target Behavior</th>
-                <th>Details</th>
-                <th>Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for behavior in behaviors %}
 
-            <tr>
-                <td>{{ behavior.behavior }}</td>
-                <td>{{ behavior.behavior_details }}</td>
-                <td><button><a href="{% url 'specialist:edit_target_behaviors' behavior.id %}">Edit this
-                            behavior</a></button></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+<div id="client-detail-table">
+
+        <div class="container mt-3">
+                <table class="table table-hover">
+                        <thead>
+                                <tr>
+                                        <th scope="col">Target Behavior</th>
+                                        <th scope="col">Details</th>
+                                        <th scope="col">Notes</th>
+                                        <th scope="col">Edit</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                {% for behavior in behaviors %}
+                                <tr>
+                                        <td>{{ behavior.behavior }}</td>
+                                        <td><button class="btn btn-outline-primary" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseButton{{ forloop.counter }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseButton{{ forloop.counter }}">
+                                                        Details</button>
+                                                <div class="collapse" id="collapseButton{{ forloop.counter }}">
+                                                        <div class="card card-body">
+                                                                {{ behavior.behavior_details }}
+                                                        </div>
+                                        </td>
+                                        <td><button class="btn btn-outline-primary" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseButton2{{ forloop.counter }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseButton2{{ forloop.counter }}">
+                                                        Notes</button>
+                                                <div class="collapse" id="collapseButton2{{ forloop.counter }}">
+                                                        <div class="card card-body">
+                                                                {{ behavior.notes }}
+                                                        </div>
+                                        </td>
+                                        <td><button class="btn btn-outline-primary"><a
+                                                                href="{% url 'specialist:edit_target_behaviors' behavior.id %}"
+                                                                id="detail-button">Edit
+
+                                                                behavior</a></button></td>
+                                </tr>
+                                {% endfor %}
+
+                        </tbody>
+                </table>
+        </div>
 </div>
 
-<button><a href="{% url 'specialist:record_feeling' client.id %}">Record Feeling</a></button>
-
-<button><a href="{% url 'specialist:edit_target_behaviors' client.id %}">Edit Target Behaviors</a></button>
 
 
 
-<button><a href="{% url 'specialist:add_behavior' client.id %}">Add Behaviors for this Client</a></button>
+<button class="btn btn-outline-primary"><a href="{% url 'specialist:add_behavior' client.id %}" id="detail-button">Add
+                Behaviors for this
+                Client</a></button>
 
 
+<button class="btn btn-outline-primary"><a href="{% url 'specialist:view_feelings' client.id %}" id="detail-button">View
+                Ratings &
+                Feelings</a></button>
 
-<button><a href="{% url 'specialist:parent_detail' client.id %}">Parent Detail</a></button>
-
-<button><a href="{% url 'specialist:view_feelings' client.id %}">View Feelings</a></button>
-
-
-</tbody>
-</table><br>
-<button><a href="{% url 'specialist:client_list' %}"> Back to Specialist's Dashboard</a></button>
+<button class="btn btn-outline-primary"><a href="{% url 'specialist:client_list' %}" id="detail-button"> Back to
+                Specialist's
+                Dashboard</a></button>
 {% endblock content %}

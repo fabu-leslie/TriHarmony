@@ -1,29 +1,58 @@
 {% extends 'base.html'%}
+
 {% block content %}
-
-<h1>Parent Behavior Ratings</h1>
-<div class="parent_data">
-    <ul>
-        {% for behavior in behaviors %}
-        <li>{{ behavior.behavior }}: Intensity: {{ behavior.behavior_intensity }}
-            Frequency: {{ behavior.behavior_frequency }}
-            Date: {{ behavior.created_at|date:"Y-m-d" }}
-            Note:  {{ behavior.note }} 
-        </li><br>
-
-        {% endfor %}
-    </ul>
-
-
+<br>
+<h2>Parent Behavior Ratings</h2>
+<h6>Client: {{ child.name }}</h6>
+<br>
+<div class="view-feelings-tables">
+    <table class="table" style="color: white">
+        <thead>
+            <tr>
+                <th scope="col">Behavior</th>
+                <th scope="col">Intensity</th>
+                <th scope="col">Frequency</th>
+                <th scope="col">Date</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for behavior in behaviors %}
+            <tr>
+                <td>{{ behavior.behavior }}</td>
+                <td>{{ behavior.behavior_intensity }}</td>
+                <td>{{ behavior.behavior_frequency }}</td>
+                <td>{{ behavior.created_at|date:"Y-m-d" }}</td>
+                <td>{{ behavior.note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+<br>
 
 
-<h1>Feelings reported by {{ child.name }}</h1>
-<div class="feeling">
-    {% for feeling in feelings %}
-    <p>Feeling: {{ feeling.get_feeling_display }}</p>
-    <p>Note: {{ feeling.note }}</p>
-    <p>Reported: {{ feeling.recorded_at|date:"F j, Y, H:i" }}</p><br>
-    {% endfor %}
+
+<h2>Feelings reported by {{ child.name }}</h2>
+<div class="view-feelings-tables" id="feelings-reported">
+
+    <table class="table" style="color: white">
+        <thead>
+            <tr>
+                <th scope="col">Feeling</th>
+                <th scope="col">Date</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feeling in feelings %}
+            <tr>
+                <td>{{ feeling.get_feeling_display }}</td>
+                <td>{{ feeling.recorded_at|date:"F j, Y, H:i" }}</td>
+                <td>{{ feeling.note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock content %}

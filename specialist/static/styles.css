@@ -1,6 +1,133 @@
-.container {
-  background-color: lightblue;
-  font-family: "Trebuchet MS", sans-serif;
+/* font-family: 'Jost', sans-serif;
+font-family: 'Lexend', sans-serif;
+font-family: 'Lilita One', cursive;
+ */
+/* ********BASE.HTML******** */
+body {
+  font-family: 'nevis', sans-serif;
+  background-image: url('images/moroccan-flower2.png');
+}
+
+.container-fluid {
+  min-height: 100%;
+}
+
+.logo-image {
+  opacity: 50%;
+  margin-top: 6em;
+}
+
+.link-dark {
+  font-size: 1rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+/*************SIDEBAR***************/
+.sidebar1 {
+  /* background: #F17153; */
+  background-image: linear-gradient(45deg,
+      hsl(27, 93%, 58%) 0%,
+      hsl(29deg 93% 58%) 11%,
+      hsl(31deg 94% 57%) 23%,
+      hsl(33deg 94% 57%) 35%,
+      hsl(35deg 95% 57%) 46%,
+      hsl(37deg 95% 57%) 57%,
+      hsl(39deg 94% 57%) 68%,
+      hsl(40deg 94% 58%) 79%,
+      hsl(42deg 93% 58%) 90%,
+      hsl(44deg 93% 58%) 100%);
+  /* Standard syntax */
+  padding: 0px;
+  min-height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.logo>img {
+  margin-top: 30px;
+  padding: 3px;
+  border: 3px solid white;
+  border-radius: 100%;
+}
+
+.list {
+  color: #fff;
+  padding-left: 0px;
+}
+
+.list::first-line {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.list>li,
+h5 {
+  padding: 5px 0px 5px 40px;
+
+}
+
+.list>li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 5px solid white;
+  color: white;
+  font-weight: bolder;
+  padding-left: 35px;
+}
+
+.main-content {
+  text-align: center;
+}
+
+.main-content .child-info ul {
+  margin-left: 0 !important;
+  text-align: left !important;
+}
+
+/* *****************PARENT DETAIL***************** */
+
+#rating-form {
+  background-color: #0420539c;
+  color: white;
+  padding-top: 1em;
+  ;
+}
+
+/* *****************CLIENT DETAIL***************** */
+#client-detail-table {
+  background-color: #04205349;
+  padding-top: 1em;
+}
+
+#detail-button {
+  padding: 0
+}
+
+/******************CLIENT-LIST***************** */
+#client-list-table {
+  background-color: #04205359;
+  padding: 1em;
+}
+
+/******************CHILD PAGE***************** */
+.child-page {
+  font-family: 'Lilita One', cursive;
+}
+
+.card-body>.card-title {
+  font-family: 'Lilita One', cursive;
+}
+
+.top-link {
+  text-align: left;
+}
+
+#user-greeting {
+  text-align: center;
+  font-weight: bold;
 }
 
 label {
@@ -21,5 +148,70 @@ label {
 }
 
 .card-input-element:checked+.card-input {
-  box-shadow: 0 0 1px 1px #2ecc71;
+  box-shadow: 0 0 10px 10px #0798bd;
+}
+
+#overwhelmed-text {
+  font-size: 18px;
+
+}
+
+#record-feelings-note {
+  padding: 0;
+  width: 60%;
+  text-align: center;
+}
+
+#red-arrow {
+  float: right;
+  margin-right: 90px;
+}
+
+#record-feelings-header {
+  color: white
+}
+
+/* *****************VIEW RATINGS AND FEELINGS***************** */
+
+.view-feelings-tables {
+  background-color: #0420539c;
+  padding-top: 1em;
+}
+
+#signup {
+  width: 50%;
+  margin: 0 auto;
+}
+
+
+.form-group input[type=text],
+.form-group textarea {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+
+
+.select-fields {
+  float: right;
+  margin-right: 10px;
+}
+
+#note-form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.client-info {
+  text-align: left;
+  margin-left: 0;
 }

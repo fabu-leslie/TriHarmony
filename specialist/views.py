@@ -51,51 +51,41 @@ def client_detail(request, client_id):
     client = get_object_or_404(Child, id=client_id)
     behaviors = client.behavior_set.all()
     parent = client.parent_set.all()
+    notes = client.behavior_set.all()
     context = {
         'client': client,
         'behaviors': behaviors,
         'parent': parent,
+        'notes': notes,
     }
     return render(request, 'client_detail.html', context)
 
 
 # @login_required
-@permission_required('specialist.view_child')
-def record_feeling(request, client_id):
-    child = get_object_or_404(Child, id=client_id)
-    parent = child.parent_set.all()
-    print(child.name)
-    if request.method == 'POST':
-        form = FeelingForm(request.POST)
-        if form.is_valid():
-            feeling = form.save(commit=False)
-            feeling.child = child
-            feeling.feeling = form.cleaned_data['feeling']
-            feeling.note = form.cleaned_data['note']
-            feeling.save()
-            print(feeling)
-            print(feeling.note)
-            messages.success(request, 'Thank you for sharing your feelings!')
-            return HttpResponseRedirect(reverse('specialist:record_feeling', args=(client_id,)))
-        else:
-            messages.error(request, 'You forgot to select a feeling!')
-    else:
-        form = FeelingForm()
-    context = {
-        'form': form,
-        'child': child,
-        'parent': parent, }
-    return render(request, 'record_feeling.html', context)
-
-
-# @login_required
 @permission_required('specialist.view_specialist')
 def client_list(request):
-    clients = Child.objects.all()
+    clients = Child.objects.all().order_by('name')
     return render(request, 'client_list.html', {'clients': clients})
 
+# @permission_required('specialist.view_specialist')
+# def client_list(request):
+#     specialist = request.user.specialist
+#     clients = Child.objects.filter(specialist=specialist)
+#     return render(request, 'client_list.html', {'clients': clients})
+
+# @permission_required('specialist.view_specialist')
+# def client_list(request):
+#     show_all = request.GET.get('show_all')
+#     if show_all:
+#         clients = Child.objects.all()
+#     else:
+#         specialist = request.user.specialist
+#         clients = Child.objects.filter(specialist=specialist)
+#     return render(request, 'client_list.html', {'clients': clients})
 
 # @login_required
+
+
 @permission_required('specialist.view_specialist')
 def edit_target_behaviors(request, behavior_id):
     behavior = get_object_or_404(Behavior, id=behavior_id)
@@ -115,7 +105,7 @@ def home(request):
     return render(request, 'home.html')
 
 
-# @login_required
+@login_required
 @permission_required('specialist.view_parent')
 def parent_detail(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
@@ -141,6 +131,7 @@ def parent_detail(request, parent_id):
             return redirect('specialist:parent_detail', parent_id=parent_id)
     else:
         form = BehaviorForm()
+
     context = {
         'parent': parent,
         'child': child,
@@ -151,8 +142,37 @@ def parent_detail(request, parent_id):
     }
     return render(request, 'parent_detail.html', context)
 
+# @login_required
+
+
+@permission_required('specialist.view_child')
+def record_feeling(request, client_id):
+    child = get_object_or_404(Child, id=client_id)
+    parent = child.parent_set.all()
+    if request.method == 'POST':
+        form = FeelingForm(request.POST)
+        if form.is_valid():
+            feeling = form.save(commit=False)
+            feeling.child = child
+            feeling.feeling = form.cleaned_data['feeling']
+            feeling.note = form.cleaned_data['note']
+            feeling.save()
+            messages.success(
+                request, 'Great job! Thank you for sharing your feelings!')
+            return HttpResponseRedirect(reverse('specialist:record_feeling', args=(client_id,)))
+        else:
+            messages.error(request, 'Oops! You forgot to select a feeling!')
+    else:
+        form = FeelingForm()
+    context = {
+        'form': form,
+        'child': child,
+        'parent': parent, }
+    return render(request, 'record_feeling.html', context)
 
 # @login_required
+
+
 @permission_required('specialist.view_specialist')
 def view_feelings(request, client_id):
     child = get_object_or_404(Child, id=client_id)
@@ -172,7 +192,21 @@ def view_feelings(request, client_id):
 def search_results(request):
     query = request.GET.get('q')
     if query:
-        clients = Child.objects.filter(name__icontains=query)
-        return render(request, 'search_results.html', {'clients': clients})
+        clients = Child.objects.filter(name=query).values()
     else:
-        return render(request, 'search_results.html')
+        clients = Child.objects.all()
+    print(clients)
+    return render(request, 'search_results.html', {'clients': clients})
+
+@permission_required('specialist.view_parent')
+def parent_list(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        try:
+            parent = Parent.objects.get(user=current_user)
+            children = Child.objects.filter(parent=parent)
+            return render(request, 'parent_list.html', {'children': children})
+        except Parent.DoesNotExist:
+            return render(request, 'no_children.html')
+    else:
+        return redirect('login')

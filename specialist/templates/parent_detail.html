@@ -1,28 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Parent: {{ parent.name }}</h2>
-<p><a href="{% url 'logout' %}">Log Out</a></p>
-
-<p>Child: {{ child.name }}</p>
-<p>Child's Age: {{ child.age }}</p>
-<p>Specialist: {{ child.specialist }}</p>
-
-
-
+<div class="client-info">
+    <h4>Parent: {{ parent.name }}</h4>
+    <h6>Child: {{ child.name }}</h6>
+    <h6>Child's Age: {{ child.age }}</h6>
+    <h6>Specialist: {{ child.specialist }}</h6>
+</div>
+<br>
 <h1>Behavior Rating Form for {{ parent.child }}</h1>
+<h4>Please be sure to rate each behavior</h4>
+<br>
 {% if messages %}
-<ul class="messages">
+<ul class="alert alert-success" id="success-message">
     {% for message in messages %}
-    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message.message }}</li>
+    <h4 {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message.message }}</h4>
     {% endfor %}
 </ul>
 {% endif %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
+<div id="rating-form">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="form-behaviors" class="col-sm-2 col-form-label">Target Behaviors</label>
+            <div class="col-sm-8">
+                {{ form.behavior }}
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">{{ form.behavior_intensity.label }}</label>
+            <div class="col-sm-8">
+                {{ form.behavior_intensity }}
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">{{ form.behavior_frequency.label }}</label>
+            <div class="col-sm-8">
+                {{ form.behavior_frequency }}
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Please add any details here if you wish</label>
+            <div class="col-sm-8">
+                {{ form.note }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 <br>
 <br>
 

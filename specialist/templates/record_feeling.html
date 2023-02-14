@@ -2,110 +2,158 @@
 {% load static %}
 {% block title %}Record Feeling{% endblock %}
 {% block content %}
-<h1>Hi, {{ child.name }}!</h1>
-<h2>How are you feeling right now?</h2>
+<div class="child-page" id="user-greeting">
+    <h5>Hi, {{ child.name }}!</h5>
+
+    <h1>How are you feeling right now?</h1>
+    <h5>Choose one feeling at a time - you can submit as often as you like!</h5>
+</div>
 {% if messages %}
-<ul class="messages">
+<ul class="alert alert-success">
     {% for message in messages %}
-    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message.message }}</li>
+    <h3 {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message.message }}</h3>
     {% endfor %}
 </ul>
 {% endif %}
 
+<div class="container d-flex justify-content-center align-items-center">
 
-<div class="container">
     <form action="{% url 'specialist:record_feeling' client_id=child.id %}" method="post">
         {% csrf_token %}
-        <label for="feeling">Select your feeling:</label>
         <br>
-        <div class="container">
-            <div class="row">
-                <div class="col-4 mx-auto">
-                    <label>
-                        <input type="radio" name="feeling" id="happy" value="happy" selected checked
-                            class="card-input-element">
-
-                        <div class="card card-default card-input text-center" style="width:200px">
-                            <img class="card-img-top" src="{% static 'images/happy-face-lg3.png' %}" alt="happy face">
-                            <div class="card-body">
-                                <h4 class="card-title">HAPPY</h4>
-                            </div>
-                        </div>
-                    </label>
-                </div>
-                <div class="col-4 mx-auto">
-                    <label>
-                        <input type="radio" name="feeling" id="sad" value="sad" selected checked
-                            class="card-input-element">
-
-                        <div class="card card-default card-input text-center" style="width:200px">
-                            <img class="card-img-top" src="{% static 'images/sad.png' %}" alt="sad face">
-                            <div class="card-body">
-                                <h4 class="card-title">SAD</h4>
-                            </div>
-                        </div>
-                    </label>
-                </div>
-                <div class="col-4 mx-auto">
-                    <label>
-                        <input type="radio" name="feeling" id="angry" value="angry" selected checked
-                            class="card-input-element">
-
-                        <div class="card card-default card-input text-center" style="width:200px">
-                            <img class="card-img-top" src="{% static 'images/angry.png' %}" alt="angry face">
-                            <div class="card-body">
-                                <h4 class="card-title">ANGRY</h4>
-                            </div>
-                        </div>
-                    </label>
-                </div>
+        <div style="background-color: #0420539c; padding-top: 1em;">
+            <div class="container">
                 <div class="row">
-                    <div class="col-4 mx-auto">
+                    <div class="col-3 mx-auto">
+                        <label>
+                            <input type="radio" name="feeling" id="happy" value="happy" selected checked
+                                class="card-input-element">
+
+                            <div class="card card-default card-input text-center" style="width:160px">
+                                <img class="card-img-top" src="{% static 'images/Happy.png' %}" alt="happy face">
+                                <div class="card-body">
+                                    <h4 class="card-title">HAPPY</h4>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-3 mx-auto">
+                        <label>
+                            <input type="radio" name="feeling" id="sad" value="sad" selected checked
+                                class="card-input-element">
+
+                            <div class="card card-default card-input text-center" style="width:160px">
+                                <img class="card-img-top" src="{% static 'images/sad2.png' %}" alt="sad face">
+                                <div class="card-body">
+                                    <h4 class="card-title">SAD</h4>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-3 mx-auto">
+                        <label>
+                            <input type="radio" name="feeling" id="angry" value="angry" selected checked
+                                class="card-input-element">
+
+                            <div class="card card-default card-input text-center" style="width:160px">
+                                <img class="card-img-top" src="{% static 'images/angry.png' %}" alt="angry face">
+                                <div class="card-body">
+                                    <h4 class="card-title">ANGRY</h4>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="col-3 mx-auto">
                         <label>
                             <input type="radio" name="feeling" id="scared" value="scared" selected checked
                                 class="card-input-element">
 
-                            <div class="card card-default card-input text-center" style="width:200px">
-                                <img class="card-img-top" src="{% static 'images/scared.png' %}" alt="scared face">
+                            <div class="card card-default card-input text-center" style="width:160px">
+                                <img class="card-img-top" src="{% static 'images/scared3.png' %}" alt="scared face">
                                 <div class="card-body">
                                     <h4 class="card-title">SCARED</h4>
                                 </div>
                             </div>
                         </label>
                     </div>
-                </div>
-            </div>
+                    <div class="row">
+                        <div class="col-3 mx-auto">
+                            <label>
+                                <input type="radio" name="feeling" id="excited" value="excited" selected checked
+                                    class="card-input-element">
 
-            <div class="col-4 mx-auto">
-                <label>
-                    <input type="radio" id="happy" name="feeling" value="happy" selected checked
-                        class="card-input-element">
-                    <div></div>
-                </label>
-                <div class="card text-center" style="width:200px">
-                    <img class="card-img-top" src="{% static 'images/scared.png' %}" alt="scared face">
-                    <div class="card-body">
-                        <h4 class="card-title">SCARED</h4>
-                        <a href="#" class="stretched-link"></a>
+                                <div class="card card-default card-input text-center" style="width:160px">
+                                    <img class="card-img-top" src="{% static 'images/excited.png' %}"
+                                        alt="excited face">
+                                    <div class="card-body">
+                                        <h4 class="card-title">EXCITED</h4>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-3 mx-auto">
+                            <label>
+                                <input type="radio" name="feeling" id="nervous" value="nervous" selected checked
+                                    class="card-input-element">
+
+                                <div class="card card-default card-input text-center"
+                                    style="width:160px; margin-left: 15px">
+                                    <img class="card-img-top" src="{% static 'images/nervous.png' %}"
+                                        alt="nervous face">
+                                    <div class="card-body">
+                                        <h4 class="card-title">NERVOUS</h4>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="col-3 mx-auto">
+                            <label>
+                                <input type="radio" name="feeling" id="proud" value="proud" selected checked
+                                    class="card-input-element">
+
+                                <div class="card card-default card-input text-center"
+                                    style="width:160px; margin-left:20px;">
+                                    <img class="card-img-top" src="{% static 'images/proud.png' %}" alt="proud face">
+                                    <div class="card-body">
+                                        <h4 class="card-title">PROUD</h4>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-3 mx-auto">
+                            <label>
+                                <input type="radio" name="feeling" id="overwhelmed" value="overwhelmed" selected checked
+                                    class="card-input-element">
+
+                                <div class="card card-default card-input text-center"
+                                    style="width:160px; margin-left: 30px">
+                                    <img class="card-img-top" src="{% static 'images/overwhelmed3.png' %}"
+                                        alt="overwhelmed face">
+                                    <div class="card-body">
+                                        <h4 id="overwhelmed-text" class="card-title">OVERWHELMED</h4>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
-
+            </div><br>
+            <h4 id="record-feelings-header">Don't see your feeling? Have something else to say? Type it in here!</h4>
+            <img id="red-arrow" src="{% static 'images/red-arrow.png' %}" alt="red arrow" width="100px" height="100px">
+            <br>
+            <div class="container" id="record-feelings-note">
+                <div class="input-group">
+                    <textarea class="form-control" id="record-feelings-note" rows="4"
+                        placeholder="If not, just choose your feeling, and hit 'submit!'"></textarea>
+                    <button class="btn btn-info" type="submit" value="Save">Submit</button>
+                </div>
             </div>
-
-        </div>
+            <br><br>
+    </form>
 </div>
 </div>
-</div>
-<br>
-
-</form>
-</div>
-<br>
-<h3>Have something else to say? Say it here!</h3>
-
-
-<textarea name="note" cols="30" rows="10"></textarea>
-<button type="submit" value="Save">Save</button>
 
 
 {% endblock %}
