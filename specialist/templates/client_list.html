@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<br>
 <h2>{{ user.username }}'s Dashboard</h2>
-<div>
+<div class="text-center">
     <p>Search for client by name</p>
-    <form class="d-flex" role="search" action="{% url 'specialist:search_results' %}" method="get">
-        <input class="form-control me-2" type="search" placeholder="Enter client's full name" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+    <form class="d-flex justify-content-center" role="search" action="{% url 'specialist:search_results' %}"
+        method="POST">
+        {% csrf_token %}
+        <div class="text-center">
+            <input class="form-control search-input" type="text" name="search-query"
+                placeholder="Enter client's full name" aria-label="Search">
+        </div>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
     </form>
 </div>
 <br>
@@ -14,11 +20,11 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Date of Birth</th>
-                <th scope="col">Age</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Specialist</th>
+                <th scope="col" class="table-header">Name</th>
+                <th scope="col" class="table-header">Date of Birth</th>
+                <th scope="col" class="table-header">Age</th>
+                <th scope="col" class="table-header">Gender</th>
+                <th scope="col" class="table-header">Specialist</th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +40,11 @@
         </tbody>
     </table>
 
-    <button class="btn btn-outline-primary"><a href="{% url 'specialist:add_client' %}">Click here to add new
-            client</a></button><br>
-
 </div>
+<br>
+<button class="btn btn-outline-primary"><a href="{% url 'specialist:add_client' %}">Click here to add new
+        client</a></button><br>
+
 
 
 

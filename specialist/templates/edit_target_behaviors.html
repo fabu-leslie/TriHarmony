@@ -3,10 +3,12 @@
 
 
 <h2>Edit Behavior for {{ child.name }}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save Changes">
-</form>
+<div class="form-group mx-auto" style="width: 500px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Changes">
+    </form>
+</div>
 
 {% endblock content %}

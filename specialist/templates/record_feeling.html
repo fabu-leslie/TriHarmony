@@ -26,8 +26,7 @@
                 <div class="row">
                     <div class="col-3 mx-auto">
                         <label>
-                            <input type="radio" name="feeling" id="happy" value="happy" selected checked
-                                class="card-input-element">
+                            <input type="radio" name="feeling" id="happy" value="happy" class="card-input-element">
 
                             <div class="card card-default card-input text-center" style="width:160px">
                                 <img class="card-img-top" src="{% static 'images/Happy.png' %}" alt="happy face">
@@ -39,8 +38,7 @@
                     </div>
                     <div class="col-3 mx-auto">
                         <label>
-                            <input type="radio" name="feeling" id="sad" value="sad" selected checked
-                                class="card-input-element">
+                            <input type="radio" name="feeling" id="sad" value="sad" class="card-input-element">
 
                             <div class="card card-default card-input text-center" style="width:160px">
                                 <img class="card-img-top" src="{% static 'images/sad2.png' %}" alt="sad face">
@@ -52,8 +50,7 @@
                     </div>
                     <div class="col-3 mx-auto">
                         <label>
-                            <input type="radio" name="feeling" id="angry" value="angry" selected checked
-                                class="card-input-element">
+                            <input type="radio" name="feeling" id="angry" value="angry" class="card-input-element">
 
                             <div class="card card-default card-input text-center" style="width:160px">
                                 <img class="card-img-top" src="{% static 'images/angry.png' %}" alt="angry face">
@@ -66,8 +63,7 @@
 
                     <div class="col-3 mx-auto">
                         <label>
-                            <input type="radio" name="feeling" id="scared" value="scared" selected checked
-                                class="card-input-element">
+                            <input type="radio" name="feeling" id="scared" value="scared" class="card-input-element">
 
                             <div class="card card-default card-input text-center" style="width:160px">
                                 <img class="card-img-top" src="{% static 'images/scared3.png' %}" alt="scared face">
@@ -80,7 +76,7 @@
                     <div class="row">
                         <div class="col-3 mx-auto">
                             <label>
-                                <input type="radio" name="feeling" id="excited" value="excited" selected checked
+                                <input type="radio" name="feeling" id="excited" value="excited"
                                     class="card-input-element">
 
                                 <div class="card card-default card-input text-center" style="width:160px">
@@ -94,7 +90,7 @@
                         </div>
                         <div class="col-3 mx-auto">
                             <label>
-                                <input type="radio" name="feeling" id="nervous" value="nervous" selected checked
+                                <input type="radio" name="feeling" id="nervous" value="nervous"
                                     class="card-input-element">
 
                                 <div class="card card-default card-input text-center"
@@ -110,8 +106,7 @@
 
                         <div class="col-3 mx-auto">
                             <label>
-                                <input type="radio" name="feeling" id="proud" value="proud" selected checked
-                                    class="card-input-element">
+                                <input type="radio" name="feeling" id="proud" value="proud" class="card-input-element">
 
                                 <div class="card card-default card-input text-center"
                                     style="width:160px; margin-left:20px;">
@@ -124,7 +119,7 @@
                         </div>
                         <div class="col-3 mx-auto">
                             <label>
-                                <input type="radio" name="feeling" id="overwhelmed" value="overwhelmed" selected checked
+                                <input type="radio" name="feeling" id="overwhelmed" value="overwhelmed"
                                     class="card-input-element">
 
                                 <div class="card card-default card-input text-center"
@@ -145,9 +140,9 @@
             <br>
             <div class="container" id="record-feelings-note">
                 <div class="input-group">
-                    <textarea class="form-control" id="record-feelings-note" rows="4"
-                        placeholder="If not, just choose your feeling, and hit 'submit!'"></textarea>
-                    <button class="btn btn-info" type="submit" value="Save">Submit</button>
+                    <label for="record-feelings-note" id="note-label">When you're done, just hit 'submit!'</label>
+                    <textarea class="form-control" id="record-feelings-note" rows="4" name="note"></textarea>
+                    <input class="btn btn-info" type="submit" value="Submit!">
                 </div>
             </div>
             <br><br>

@@ -8,7 +8,6 @@ from .forms import BehaviorForm, ChildForm, FeelingForm, SpecialistBehaviorForm
 from .models import Behavior, BehaviorCheckIn, Child, Feeling, Parent
 
 
-# @login_required
 @permission_required('specialist.view_specialist')
 def add_behavior(request, client_id):
     client = get_object_or_404(Child, pk=client_id)
@@ -24,7 +23,6 @@ def add_behavior(request, client_id):
     return render(request, 'add_behavior.html', {'form': form, 'client': client})
 
 
-# @login_required
 @permission_required('specialist.view_specialist')
 def add_client(request):
     if request.method == 'POST':
@@ -37,7 +35,6 @@ def add_client(request):
     return render(request, 'add_client.html', {'new_client_form': new_client_form})
 
 
-# @login_required
 def client_behavior(request, client_id):
     client = Child.objects.get(id=client_id)
     behaviors = Behavior.objects.filter(child=client)
@@ -45,7 +42,18 @@ def client_behavior(request, client_id):
     return render(request, 'client_detail.html', context)
 
 
-# @login_required
+@permission_required('specialist.view_parent')
+def child_list(request, parent_id):
+    parent = get_object_or_404(Parent, id=parent_id)
+    children = Child.objects.filter(parent=parent)
+    context = {
+        'children': children,
+        'parent': parent,
+    }
+    return render(request, 'child_list.html', context)
+
+
+
 @permission_required('specialist.view_specialist')
 def client_detail(request, client_id):
     client = get_object_or_404(Child, id=client_id)
@@ -61,29 +69,10 @@ def client_detail(request, client_id):
     return render(request, 'client_detail.html', context)
 
 
-# @login_required
 @permission_required('specialist.view_specialist')
 def client_list(request):
     clients = Child.objects.all().order_by('name')
     return render(request, 'client_list.html', {'clients': clients})
-
-# @permission_required('specialist.view_specialist')
-# def client_list(request):
-#     specialist = request.user.specialist
-#     clients = Child.objects.filter(specialist=specialist)
-#     return render(request, 'client_list.html', {'clients': clients})
-
-# @permission_required('specialist.view_specialist')
-# def client_list(request):
-#     show_all = request.GET.get('show_all')
-#     if show_all:
-#         clients = Child.objects.all()
-#     else:
-#         specialist = request.user.specialist
-#         clients = Child.objects.filter(specialist=specialist)
-#     return render(request, 'client_list.html', {'clients': clients})
-
-# @login_required
 
 
 @permission_required('specialist.view_specialist')
@@ -105,7 +94,6 @@ def home(request):
     return render(request, 'home.html')
 
 
-@login_required
 @permission_required('specialist.view_parent')
 def parent_detail(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
@@ -142,7 +130,6 @@ def parent_detail(request, parent_id):
     }
     return render(request, 'parent_detail.html', context)
 
-# @login_required
 
 
 @permission_required('specialist.view_child')
@@ -167,17 +154,18 @@ def record_feeling(request, client_id):
     context = {
         'form': form,
         'child': child,
-        'parent': parent, }
+        'parent': parent,
+    }
     return render(request, 'record_feeling.html', context)
 
-# @login_required
 
 
 @permission_required('specialist.view_specialist')
 def view_feelings(request, client_id):
     child = get_object_or_404(Child, id=client_id)
-    feelings = Feeling.objects.filter(child=child)
-    behaviors = BehaviorCheckIn.objects.filter(behavior__child=child)
+    feelings = Feeling.objects.filter(child=child).order_by('-recorded_at')
+    behaviors = BehaviorCheckIn.objects.filter(
+        behavior__child=child).order_by('-created_at')
     context = {
         'feelings': feelings,
         'child': child,
@@ -187,26 +175,8 @@ def view_feelings(request, client_id):
     return render(request, 'view_feelings.html', context)
 
 
-# @login_required
 @permission_required('specialist.view_specialist')
 def search_results(request):
-    query = request.GET.get('q')
-    if query:
-        clients = Child.objects.filter(name=query).values()
-    else:
-        clients = Child.objects.all()
-    print(clients)
+    query = request.POST['search-query']
+    clients = Child.objects.filter(name=query).values()
     return render(request, 'search_results.html', {'clients': clients})
-
-@permission_required('specialist.view_parent')
-def parent_list(request):
-    if request.user.is_authenticated:
-        current_user = request.user
-        try:
-            parent = Parent.objects.get(user=current_user)
-            children = Child.objects.filter(parent=parent)
-            return render(request, 'parent_list.html', {'children': children})
-        except Parent.DoesNotExist:
-            return render(request, 'no_children.html')
-    else:
-        return redirect('login')

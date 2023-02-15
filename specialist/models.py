@@ -43,7 +43,7 @@ class Parent(models.Model):
 class Behavior(models.Model):
     behavior = models.CharField(max_length=255)
     behavior_details = models.CharField(max_length=1000, default='')
-    notes = models.CharField(max_length=255)
+    notes = models.CharField(max_length=255, blank=True)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -79,9 +79,10 @@ class Feeling(models.Model):
         ('overwhelmed', 'Overwhelmed'),
     )
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
-    feeling = models.CharField(choices=FEELINGS_CHOICES, max_length=255)
+    feeling = models.CharField(
+        choices=FEELINGS_CHOICES, max_length=255, blank=False)
     recorded_at = models.DateTimeField(auto_now_add=True, null=True)
-    note = models.TextField(max_length=3000, blank=False)
+    note = models.TextField(max_length=3000, blank=True)
 
     def __str__(self):
         return self.feeling

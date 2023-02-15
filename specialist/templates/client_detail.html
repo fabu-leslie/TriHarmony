@@ -2,20 +2,21 @@
 
 
 {% block content %}
-<h1 class="text-center">{{ client.name }}</h1><br>
+<br>
+<h1 class="text-center">{{ client.name }}</h1>
+<h6 class="text-center">Age: {{client.age }}</h6><br>
 
 
 
 <div id="client-detail-table">
-
         <div class="container mt-3">
                 <table class="table table-hover">
                         <thead>
                                 <tr>
-                                        <th scope="col">Target Behavior</th>
-                                        <th scope="col">Details</th>
-                                        <th scope="col">Notes</th>
-                                        <th scope="col">Edit</th>
+                                        <th scope="col" class="table-header">Target Behavior</th>
+                                        <th scope="col" class="table-header">Details</th>
+                                        <th scope="col" class="table-header">Notes</th>
+                                        <th scope="col" class="table-header">Edit</th>
                                 </tr>
                         </thead>
                         <tbody>

@@ -4,10 +4,12 @@
 {% block content %}
 <h1>{{ client.name }}</h1>
 <h1>Add Behaviors</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save Changes">
-</form>
+<div class="form-group mx-auto" style="width: 500px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Changes">
+    </form>
+</div>
 
 {% endblock content %}

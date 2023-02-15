@@ -22,5 +22,5 @@ urlpatterns = [
     path('edit_target_behaviors/<int:behavior_id>/',
          views.edit_target_behaviors, name='edit_target_behaviors'),
     path('search_results/', views.search_results, name='search_results'),
-    path('parent_list/', views.parent_list, name='parent_list'),
+    path('child_list/<int:parent_id>', views.child_list, name='child_list'),
 ]

@@ -2,7 +2,7 @@ from django import forms
 from .models import Behavior, Child, BehaviorCheckIn, Feeling
 
 FREQUENCY_CHOICES = [
-    ('0', '(0) nonexistant'),
+    ('0', '(0) nonexistent'),
     ('1', '(1) virtually nonexistent (less than once a month, not worrisome)'),
     ('2', '(2) upper limit of normal/tolerable for a child of same approx. age'),
     ('3', '(3) a few times this past week and almost every week this past month'),
@@ -60,11 +60,14 @@ class BehaviorForm(forms.ModelForm):
             'behavior': forms.Select(choices=behavior_choices, attrs={'class': 'form-control', 'required': True, }),
             'behavior_intensity': forms.Select(choices=INTENSITY_CHOICES, attrs={'class': 'form-control', 'required': True, }),
             'behavior_frequency': forms.Select(choices=FREQUENCY_CHOICES, attrs={'class': 'form-control', 'required': True, }),
-            'note': forms.Textarea(attrs={'class': 'form-control', 'required': False, }),
+            'note': forms.Textarea(attrs={'class': 'form-control', 'required': False}),
         }
 
-
+    # def __init__(self, child, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['behavior'].queryset = Behavior.objects.filter(child=child)
 # ModelForm class - should auto generate fields for each field in model, will handle input validation and error handling.
+
 
 class ChildForm(forms.ModelForm):
     class Meta:
@@ -76,3 +79,8 @@ class SpecialistBehaviorForm(forms.ModelForm):
     class Meta:
         model = Behavior
         fields = ['behavior', 'behavior_details', 'notes']
+        widgets = {
+            'behavior': forms.Textarea(attrs={'class': 'form-control col-md-6', 'rows': 1}),
+            'behavior_details': forms.Textarea(attrs={'class': 'form-control col-md-6', 'rows': 3}),
+            'notes': forms.Textarea(attrs={'class': 'form-control col-md-6', 'rows': 5, 'required': False}),
+        }

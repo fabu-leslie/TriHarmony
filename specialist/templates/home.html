@@ -4,18 +4,20 @@
 {% block title %}TriHarmony Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<h3>Hello, {{ user.username }}!</h3>
-<p><a href="{% url 'logout' %}">Log Out</a></p>
+<div class="container my-5">
+    {% if user.is_authenticated %}
+    <h3>Hello, {{ user.username }}!</h3>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
 
-<button class="btn btn-outline-dark"><a href="{% url 'specialist:client_list' %}">Specialists Click Here for Your
-        Dashboard</a></button>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">Log In</a>
-{% endif %}
+    <button class="btn btn-outline-dark"><a href="{% url 'specialist:client_list' %}">Specialists Click Here for Your
+            Dashboard</a></button>
+    {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+    {% endif %}
 
-<div class="logo-homepage">
-    <img src="{% static 'images/tri-harmony-logo-sm.png' %}" class="mx-auto d-block logo-image" alt="Logo">
+    <div class="logo-homepage">
+        <img src="{% static 'images/tri-harmony-logo-sm.png' %}" class="mx-auto d-block logo-image" alt="Logo">
+    </div>
 </div>
 {% endblock %}

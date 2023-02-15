@@ -17,10 +17,10 @@ class CustomLoginView(LoginView):
         user = self.request.user
         if user.has_perm('specialist.view_specialist'):
             return reverse_lazy(
-                'specialist:client_list')
+                'specialist:home')
         elif user.has_perm('specialist.view_parent'):
             return reverse_lazy(
-                'specialist:parent_detail', kwargs={'parent_id': user.parent.id})
+                'specialist:child_list', kwargs={'parent_id': user.parent.id})
         elif user.has_perm('specialist.view_child'):
             return reverse_lazy(
                 'specialist:record_feeling', kwargs={'client_id': user.child.id})
