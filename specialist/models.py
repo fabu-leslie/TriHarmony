@@ -20,7 +20,7 @@ class Child(models.Model):
     dob = models.DateField()
     gender = models.CharField(max_length=255)
     specialist = models.CharField(max_length=255)
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         User, on_delete=models.CASCADE, default=None, null=True)
     is_child = models.BooleanField(default=False)
 

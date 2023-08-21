@@ -1,5 +1,5 @@
 from django import forms
-from .models import Behavior, Child, BehaviorCheckIn, Feeling
+from .models import Behavior, Child, BehaviorCheckIn, Feeling, Parent
 
 FREQUENCY_CHOICES = [
     ('0', '(0) nonexistent'),
@@ -84,3 +84,15 @@ class SpecialistBehaviorForm(forms.ModelForm):
             'behavior_details': forms.Textarea(attrs={'class': 'form-control col-md-6', 'rows': 3}),
             'notes': forms.Textarea(attrs={'class': 'form-control col-md-6', 'rows': 5, 'required': False}),
         }
+
+
+class CustomParentForm(forms.ModelForm):
+    children = forms.ModelMultipleChoiceField(
+        queryset=Child.objects.all(),  # Customize the queryset as needed
+        widget=forms.CheckboxSelectMultiple,
+        required=False  # Adjust as needed
+    )
+
+    class Meta:
+        model = Parent
+        fields = '__all__'

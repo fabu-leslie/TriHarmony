@@ -46,6 +46,8 @@ def client_behavior(request, client_id):
 def child_list(request, parent_id):
     parent = get_object_or_404(Parent, id=parent_id)
     children = Child.objects.filter(parent=parent)
+    print("Parent:", parent)
+    print("Children:", children)
     context = {
         'children': children,
         'parent': parent,
