@@ -24,3 +24,5 @@ class CustomLoginView(LoginView):
         elif user.has_perm('specialist.view_child'):
             return reverse_lazy(
                 'specialist:record_feeling', kwargs={'client_id': user.child.id})
+        
+        

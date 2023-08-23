@@ -86,13 +86,13 @@ class SpecialistBehaviorForm(forms.ModelForm):
         }
 
 
-class CustomParentForm(forms.ModelForm):
-    children = forms.ModelMultipleChoiceField(
-        queryset=Child.objects.all(),  # Customize the queryset as needed
-        widget=forms.CheckboxSelectMultiple,
-        required=False  # Adjust as needed
-    )
+# class CustomParentForm(forms.ModelForm):
+#     children = forms.ModelMultipleChoiceField(
+#         queryset=Child.objects.all(),  # Customize the queryset as needed
+#         widget=forms.CheckboxSelectMultiple,
+#         required=False  # Adjust as needed
+#     )
 
-    class Meta:
-        model = Parent
-        fields = '__all__'
+#     class Meta:
+#         model = Parent
+#         fields = '__all__'
